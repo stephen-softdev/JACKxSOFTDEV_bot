@@ -2,8 +2,9 @@ import schedule
 import time
 import asyncio
 from telegram import Bot
+import os
 
-TOKEN = "8796898980:AAG10V5k8u_Xs2sAVnjizoeo2EmpbFdoHSw"
+TOKEN = os.getenv("TOKEN")
 CHANNEL_ID = "@JACKxSOFTDEV"
 IMAGE_PATH = "poster.jpg"
 
