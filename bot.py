@@ -1,9 +1,11 @@
 import schedule
 import time
-import asyncio
 from telegram import Bot
 import os
-
+import random
+import asyncio
+from telegram import Update
+from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
 TOKEN = os.getenv("TOKEN")
 CHANNEL_ID = "@JACKxSOFTDEV"
 IMAGE_PATH = "poster.jpg"
@@ -45,3 +47,17 @@ job()
 while True:
     schedule.run_pending()
     time.sleep(1)
+
+async def auto_react(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    emojis = ["🔥", "❤️", "👍", "😎", "🚀", "💯"]
+
+    for i in range(4):  # 👈 number of reactions (4 times)
+        await update.message.reply_text(random.choice(emojis))
+        await asyncio.sleep(1)  # delay (natural feel)
+
+app = ApplicationBuilder().token(TOKEN).build()
+
+app.add_handler(MessageHandler(filters.ALL, auto_react))
+
+print("Bot running... 🚀")
+app.run_polling()
